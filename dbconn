@@ -1,0 +1,27 @@
+<%
+' db_conn.asp - Database Connection File
+
+Dim conn
+Dim strConn
+
+' DSN-less Connection String for MySQL ODBC 32-bit Driver
+' NOTE: Make sure you have the 32-bit MySQL ODBC driver installed.
+' Update the server, database, uid, and pwd values below.
+strConn = "DRIVER={MySQL ODBC 8.0 ANSI Driver};" & _
+          "SERVER=localhost;" & _
+          "DATABASE=library_db;" & _
+          "UID=root;" & _
+          "PWD=your_mysql_password;" & _
+          "OPTION=3;"
+
+Set conn = Server.CreateObject("ADODB.Connection")
+
+On Error Resume Next
+conn.Open strConn
+If conn.State = 0 Then
+    Response.Write("<h2>Database Connection Failed!</h2>")
+    Response.Write("Error: " & Err.Description)
+    Response.End
+End If
+On Error GoTo 0
+%>
